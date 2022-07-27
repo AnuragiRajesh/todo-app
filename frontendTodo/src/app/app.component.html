@@ -1,0 +1,17 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style=" padding-top: 1rem; text-align:center; height: 45rem; background: linear-gradient(to left, red , yellow);" >
+
+  <h1 style="font-weight: bolder ;" >TODO APP</h1>
+  <input type="text" #box  placeholder="enter your item">
+  <button
+  (click)="getValue(box.value)"
+  >push</button>
+
+  <ul *ngFor="let item of displayValue; let i = index"
+    >
+    <span [ngClass]="item.status === true ? 'active' : ''">{{item.value}}</span>
+    <button (click)="delItem(item)">X</button><button (click)="changecolor(item, i)" >✔️</button></ul>
+</div>
+
+
+
