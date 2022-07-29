@@ -59,14 +59,14 @@ user.init(
     timestamps: true,
   }
 );
-user.hasMany(item, {foreignKey: 'userId'});
+// user.hasMany(item, {foreignKey: 'userId'});F
 
 // item.belongsTo(user)
 
-export async function userTableSyncing() {
-  await sequelize.sync({force:true})
+// export async function userTableSyncing() {
+//   await sequelize.sync({force:true})
   
-}
+// }
 
-userTableSyncing()
+// userTableSyncing()
 export {user}

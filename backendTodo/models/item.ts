@@ -24,7 +24,7 @@
 // import { user } from "./user";
 import { InferAttributes, Model, DataTypes, } from "sequelize";
 import { DB } from "./index";
-import { it } from "node:test";
+
 let sequelize = DB;
 class item extends Model<InferAttributes<item>, InferAttributes<item>> {
   declare id: number;
@@ -58,9 +58,9 @@ item.init(
 //   foreignKey: "items",
 // });
 // item.belongsTo(user)
- export async function itemTableSyncing() {
-  await sequelize.sync({ force: true });
-  console.log("uu")
-}
-itemTableSyncing()
+//  export async function itemTableSyncing() {
+//   await sequelize.sync({ force: true });
+//   console.log("uu")
+// }
+// itemTableSyncing()
 export {item}
