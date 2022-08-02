@@ -2,6 +2,8 @@
 <div style=" padding-top: 1rem; text-align:center; height: 45rem; background: linear-gradient(to left, red , yellow);" >
 
   <h1 style="font-weight: bolder ;" >TODO APP</h1>
+  <div class="erase">
+    <!-- <button (click)="eraseAll()">erase all</button></div> -->
   <input type="text" #box  placeholder="enter your item">
   <button
   (click)="getValue(box.value)"
@@ -12,6 +14,7 @@
     <span [ngClass]="item.status === true ? 'active' : ''">{{item.value}}</span>
     <button (click)="delItem(item)">X</button><button (click)="changecolor(item, i)" >✔️</button></ul>
 </div>
+<app-home-page></app-home-page>
 
 
 

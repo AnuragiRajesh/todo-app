@@ -13,6 +13,8 @@ import { user } from "../models/user";
 //   console.log(token);
 //   res.send(`authorized: ${token}`);
 // };
+
+
 const getUser = async (req: Request, res: Response) => {
   try {
     // const id = req.params.id
