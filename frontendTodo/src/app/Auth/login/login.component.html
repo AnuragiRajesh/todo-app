@@ -1,0 +1,17 @@
+<div class="mainDiv" >
+  <div class="formDiv">
+    <h1>login</h1>
+    <form #basicForm="ngForm" (submit)="login(basicForm.value)"> 
+      <input type="text"  ngModel name="email" placeholder="Enter user email">
+      <br/> <br/>
+      <input type="text"  ngModel name="password" placeholder="Enter user password">
+      <br/><br/>
+      <button>login</button>
+    </form>
+    <button (click)="signupPage('signup')" >don't have an account?</button>
+    <p>{{errorr}}</p>
+  </div> 
+
+</div>
+
+

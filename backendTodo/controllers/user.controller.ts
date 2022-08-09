@@ -1,36 +1,40 @@
+
 import  { Request, Response } from "express";
-import { item } from "../models/item";
-// import * as jwt from "jsonwebtoken";
+
+import {AuthorizationToken} from "../middleware/jwt"
 import { user } from "../models/user";
 
-// const loginUser = (req: Request, res: Response) => {
-//   const { firstName, email } = req.body;
-//   console.log(req.body);
-
-//   const token = jwt.sign({ firstName, email }, "This is dummy text", {
-//     expiresIn: "12h",
-//   });
-//   console.log(token);
-//   res.send(`authorized: ${token}`);
-// };
 
 
 const getUser = async (req: Request, res: Response) => {
+
+
+    
   try {
-    // const id = req.params.id
+  
     console.log("yes")
-    const resp = await user.findAll({
-    //   include: {
-    //     model: item,
-    //   },
+    const resp = await user.findOne({where:{email:req.body.email}
     });
-    res
-      .status(200)
-      .json({ msg: "successfully fetched the authors", response: resp });
-    console.log(resp);
+    if (resp ){
+      if( resp.password==req.body.password &&  resp.email==req.body.email ) {
+
+        const token = AuthorizationToken(resp.id);
+        console.log(token)
+        res.cookie("token", token, { maxAge: 300 * 1000 })
+        // res.end()
+        // res.cookie("token", token)
+     return res
+          .status(200)
+          .json({ msg: "successfully fetched the user", verificationToken: token, response: resp });
+      }
+      return res.send({ msg: "wrong password or email" })
+    }else{
+      return res.send({ msg: "user does not exist", response: resp })
+
+    }
   } catch (error) {
     console.log(error);
-    res.status(400).json({ msg: "Bad request", Error: error });
+   return res.status(400).json({ msg: "Bad request", Error: error });
   }
 };
 
@@ -46,7 +50,24 @@ const createUser = async (req: Request, res: Response) => {
   } catch (error) {
     console.log(error);
     res.status(400).json({ msg: "Bad request", Error: error });
+  }}
+
+
+  const deleteUser = async (req: Request, res: Response) => {
+    
+  try {
+    console.log(req.params.id,"ppppppppppppppppppppppppppppppppppppppppppp")
+    const resp = await user.destroy({where:{id:Number(req.params.id.replace(":", "")) }})
+    res
+      .status(200)
+      .json({ msg: "successfully deleted the author", response: resp });
+    console.log(resp);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ msg: "Bad request", Error: error });
   }
+
+
 };
 
-export { createUser, getUser };
+export { createUser, getUser, deleteUser  };
