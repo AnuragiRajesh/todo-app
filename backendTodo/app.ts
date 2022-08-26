@@ -2,7 +2,7 @@
 import express, {  Application } from 'express';
 
 import cors from "cors"
-import bodyParser from "body-parser";
+// import bodyParser from "body-parser";
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -14,7 +14,7 @@ app.use(cors())
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded());
 app.use(express.json());
-app.use(express.urlencoded());
+// app.use(express.urlencoded());
 // app.use(bodyParser.urlencoded());
   
 
@@ -32,11 +32,11 @@ app.delete('/user/:id',AuthenticationToken, deleteUser)
 
 
 
-app.get('/item/:id', getItem)
-app.post('/item:id',AuthenticationToken, createItem)
+app.get('/item/:id',AuthenticationToken, getItem)
+app.post('/item/:id',AuthenticationToken, createItem)
 app.patch('/item/:id',AuthenticationToken,updateItem)
 app.delete('/item/:id',AuthenticationToken, deleteItem)
-// app.get('item/deleteAll/:id',deleteAll)
+// app.delete('item/deleteAll/:id',AuthenticationToken, deleteAll)
 
 
 

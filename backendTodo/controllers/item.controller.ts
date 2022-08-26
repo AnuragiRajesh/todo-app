@@ -4,10 +4,11 @@ import { item } from '../models/item';
 
 
 const createItem = async (req: Request, res: Response) => {
+  console.log(req.params.id)
 
   try {
 
-    const resp = await item.create({ ...req.body, userId: Number(req.params.id.replace(":", "")) });
+    const resp = await item.create({ ...req.body, userId: Number(req.params.id) });
     res
       .status(200)
       .json({ msg: "successfully added the item", response: resp });
@@ -40,18 +41,19 @@ const getItem = async (req: Request, res: Response) => {
   };
 }
 const deleteItem = async (req: Request, res: Response) => {
-  console.log("yres")
+  console.log("yres", req.params.id)
 
   try {
 
-
+    // console.log(req.body)
     const resp: any = await item.destroy({
       where: {
-        list: JSON.stringify(req.body.item)
+        list:req.params.id
       }
 
 
     });
+    console.log(resp)
     res
       .status(200)
       .json({ msg: "successfully deleted the item", response: resp });
@@ -86,6 +88,7 @@ const deleteAll = async (req: Request, res: Response) => {
 const updateItem = async (req: Request, res: Response) => {
 
   try {
+    console.log(req.body.item, req.body.updatedItem)
 
 
 

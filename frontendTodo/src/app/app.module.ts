@@ -8,6 +8,7 @@ import { LoginComponent } from './Auth/login/login.component';
 import { SignUpComponent } from './Auth/sign-up/sign-up.component';
 import { FormsModule } from '@angular/forms';
 import { HomePageComponent } from './Home/home-page/home-page.component';
+import { CommonService } from './common.service';
 
 
 @NgModule({
@@ -24,10 +25,10 @@ import { HomePageComponent } from './Home/home-page/home-page.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule
-    
+
 
   ],
-  providers: [],
+  providers: [CommonService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

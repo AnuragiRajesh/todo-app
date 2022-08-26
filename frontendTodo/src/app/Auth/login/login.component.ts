@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
   
   errorr=""
   async login(data:any) {
+    console.log("itz going")
         const users = await axios.post('http://localhost:7000/login',{email:data.email, password:data.password})
         console.log(users.data.response)
         console.log(users.data)
@@ -38,8 +39,10 @@ export class LoginComponent implements OnInit {
       
         localStorage.setItem('userId', users.data.response.id)
         localStorage.setItem('userName', users.data.response.firstName)
+        console.log(users.data.verificationToken)
+        sessionStorage.setItem('token', users.data.verificationToken)
         this.router.navigate(['home'])
-        document.cookie= `authenticateCookie= ${users.data.verificationToken}`
+        // document.cookie= `authenticateCookie= ${users.data.verificationToken}`
         
       }
       else{

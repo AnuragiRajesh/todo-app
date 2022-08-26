@@ -16,13 +16,13 @@ const getUser = async (req: Request, res: Response) => {
     const resp = await user.findOne({where:{email:req.body.email}
     });
     if (resp ){
+      // console.log(resp.id)
       if( resp.password==req.body.password &&  resp.email==req.body.email ) {
+        
 
         const token = AuthorizationToken(resp.id);
-        console.log(token)
-        res.cookie("token", token, { maxAge: 300 * 1000 })
-        // res.end()
-        // res.cookie("token", token)
+        // console.log(token)
+      
      return res
           .status(200)
           .json({ msg: "successfully fetched the user", verificationToken: token, response: resp });
