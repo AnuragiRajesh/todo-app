@@ -1,8 +1,9 @@
-<!-- <app-login></app-login>
-<app-sign-up></app-sign-up> -->
-<!-- <div class="mainDiv">
+<div class="mainDiv">
 
+  <h5 >{{userName}}</h5> <button (click)="deleteAccount()">delete your account</button>
+  <button (click)="signout()">sign-out</button>
   <h1 style="font-weight: bolder ;" >TODO APP</h1>
+
   <div class="erase">
 
   <input type="text" #box  placeholder="enter your item">
@@ -14,8 +15,4 @@
     >
     <span [ngClass]="item.status === true ? 'active' : ''">{{item.value}}</span>
     <button (click)="delItem(item)"  >X</button><button (click)="changecolor(item, i)" >✔️</button></ul>
-</div> -->
-<router-outlet></router-outlet>
-
-
-
+</div>
