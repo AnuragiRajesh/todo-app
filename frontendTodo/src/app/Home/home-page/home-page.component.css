@@ -1,12 +1,16 @@
 .active {
-    color: green;
+  color: green;
 }
-.erase {
-    /* display: flex;
-    justify-content: end;
-    margin-right: 40px;
-    margin-top: 5px; */
-}
+
 ul {
-    text-decoration: none;
+  text-decoration: none;
+}
+
+ol {
+    list-style-type: none;
+    counter-reset: item;
+}
+li:before {
+    content: counters(item, ".")". ";
+    counter-increment: item
 }

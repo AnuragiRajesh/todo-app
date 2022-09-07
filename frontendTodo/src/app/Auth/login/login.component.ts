@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-// import axios from 'axios';
 import { CommonService } from '../../common.service'
-
-
-
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,31 +12,31 @@ export class LoginComponent implements OnInit {
     private commonService: CommonService) { }
   ngOnInit() {
   }
-  signupPage(signup:string):void{
+  signupPage(signup: string): void {
     this.router.navigate(['signup'])
   }
-  
-  errorr=""
-  async login(data:any) {
-    
-       (await this.commonService.loginUser(data)).subscribe((res:any)=>{
-        
-        if (!res.response) {
-          this.errorr=res.msg
-        
-        }else{
-          console.log("pppppp")
-            localStorage.setItem('userId', res.response.id)
-            localStorage.setItem('userName', res.response.firstName)
-            console.log(res.verificationToken)
-            sessionStorage.setItem('token', res.verificationToken)
-            this.router.navigate(['home'])
-            
-          }
-        }
-          )
- 
+
+  errorr = ""
+  async login(data: any) {
+
+    (await this.commonService.loginUser(data)).subscribe((res: any) => {
+
+      if (!res.response) {
+        this.errorr = res.msg
+
+      } else {
+        console.log("pppppp")
+        localStorage.setItem('userId', res.response.id)
+        localStorage.setItem('userName', res.response.firstName)
+        console.log(res.verificationToken)
+        sessionStorage.setItem('token', res.verificationToken)
+        this.router.navigate(['home'])
+
+      }
     }
+    )
+
   }
+}
 
 

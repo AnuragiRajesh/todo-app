@@ -9,35 +9,29 @@ import axios from 'axios';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
-  
-  constructor(private router:Router) { }
-  
+
+  constructor(private router: Router) { }
   ngOnInit() {
   }
-  errorr=""
-  async sign_up(data){
+
+
+
+
+  errorr = ""
+  async sign_up(data) {
     try {
-      const users = await axios.post('http://localhost:7000/user',{firstName:data.user, email:data.email, password:data.password})
-      console.log(users)
-
-      
-      localStorage.setItem('userId',users.data.response.id )
-      localStorage.setItem('userName',users.data.response.firstName )
+      const users = await axios.post('http://localhost:7000/user', { firstName: data.user, email: data.email, password: data.password })
+      localStorage.setItem('userId', users.data.response.id)
+      localStorage.setItem('userName', users.data.response.firstName)
       this.router.navigate(['home'])
-      
     } catch (error) {
-      this.errorr="invalid email "
+      this.errorr = "invalid email "
       console.log(error)
-   
     }
-
-    
-
   }
-  loginPage(login:string):void{
+
+  loginPage(login: string): void {
     console.log(login)
     this.router.navigate(['login'])
-
   }
-
 }
