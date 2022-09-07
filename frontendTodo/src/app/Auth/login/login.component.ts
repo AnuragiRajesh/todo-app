@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import axios from 'axios';
+// import axios from 'axios';
+import { CommonService } from '../../common.service'
+
 
 
 
@@ -11,43 +13,34 @@ import axios from 'axios';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router) { }
-  
-
+  constructor(private router: Router,
+    private commonService: CommonService) { }
   ngOnInit() {
   }
   signupPage(signup:string):void{
-   
     this.router.navigate(['signup'])
-
   }
   
   errorr=""
   async login(data:any) {
-    console.log("itz going")
-        const users = await axios.post('http://localhost:7000/login',{email:data.email, password:data.password})
-        console.log(users.data.response)
-        console.log(users.data)
-      
-
     
-
-    if (users.data.response.firstName && users.data.response.email) {
-     
-      
-
-      
-        localStorage.setItem('userId', users.data.response.id)
-        localStorage.setItem('userName', users.data.response.firstName)
-        console.log(users.data.verificationToken)
-        sessionStorage.setItem('token', users.data.verificationToken)
-        this.router.navigate(['home'])
-        // document.cookie= `authenticateCookie= ${users.data.verificationToken}`
+       (await this.commonService.loginUser(data)).subscribe((res:any)=>{
         
-      }
-      else{
-        this.errorr= users.data.msg
-      }
+        if (!res.response) {
+          this.errorr=res.msg
+        
+        }else{
+          console.log("pppppp")
+            localStorage.setItem('userId', res.response.id)
+            localStorage.setItem('userName', res.response.firstName)
+            console.log(res.verificationToken)
+            sessionStorage.setItem('token', res.verificationToken)
+            this.router.navigate(['home'])
+            
+          }
+        }
+          )
+ 
     }
   }
 

@@ -36,21 +36,17 @@ export class HomePageComponent implements OnInit {
     ;(await this.commonService.getItems(value)).subscribe(res=>{
       console.log(res)
     })
-
-   
-
     console.log(this.displayValue)
   };
-  // async eraseAll() {
-  //   await axios.get(`http://localhost:7000/item/deleteAll/${1}`)
-
-  // }
+ 
   signout() {
     this.router.navigate(['login'])
   }
-  deleteAccount(
+ async deleteAccount(
   ) {
-    axios.delete(`http://localhost:7000/user/${localStorage.getItem("userId")}`)
+    (await this.commonService.deleteAccount()).subscribe(res=>{
+      console.log(res)
+    })
     this.router.navigate(['signup'])
 
   }
@@ -67,25 +63,6 @@ export class HomePageComponent implements OnInit {
       })
   }
   userName = ""
-  // dataFromApi() {
-  //   .subscribe(data => {
-  //   console.log(data)
-  // })
-
-
-  // data.data.response.map(item => {
-
-  //   this.displayValue.push(JSON.parse(item.list));
-
-  // });
-  //   this.userName = localStorage.getItem("userName")
-
-
-  // }
-
-
-
-
 
   async delItem(item: string | number) {
 
@@ -95,23 +72,15 @@ export class HomePageComponent implements OnInit {
     })
 
   };
-  // changecoorMini(item: any[], i: number, displayValue:any = [],match){
-  //   (await this.commonService.patchReq(item: any[], i: number, displayValue:any = []).subscribe(res=>{
-  //     console.log(res)
-  //   })
-    
-  // }
+
   async changecolor(item: any[], i: number) {
     const match = this.displayValue[i]
     match.status = true;
     // this.changecoorMini(item,i,this.displayValue,match)
-    //  this.http
-    //   .patch(`http://localhost:7000/item/:${localStorage.getItem("userId")}`,
-    //     { updatedItem: JSON.stringify({ 'value': match.value, 'status': true }), item: JSON.stringify({ 'value': match.value, 'status': false }) }
-    //   ).subscribe((response)=>{
-    //     console.log(response)
-    //   })
-
+    (await this.commonService.patchItem(item,match)).subscribe(res=>{
+      console.log(res)
+    })
+     
     console.log(match.status,"=>>>>>>>>>>>>>")
   }
 
