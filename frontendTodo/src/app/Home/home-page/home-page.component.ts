@@ -32,34 +32,37 @@ export class HomePageComponent implements OnInit {
     }
 
     )
-    // debugger
-    ;(await this.commonService.getItems(value)).subscribe(res=>{
-      console.log(res)
-    })
+      // debugger
+      ; (await this.commonService.getItems(value)).subscribe(res => {
+        console.log(res)
+      })
     console.log(this.displayValue)
   };
- 
+
   signout() {
+    localStorage.clear();
+    localStorage.clear();
     this.router.navigate(['login'])
   }
- async deleteAccount(
+  async deleteAccount(
   ) {
-    (await this.commonService.deleteAccount()).subscribe(res=>{
+    (await this.commonService.deleteAccount()).subscribe(res => {
       console.log(res)
     })
+    localStorage.clear();
+    localStorage.clear();
     this.router.navigate(['signup'])
 
   }
   ngOnInit() {
-    // this.dataFromApi();
     this.commonService.dataFromApi().
       subscribe(data => {
         console.log(data['response'])
         data["response"].map(item => {
           this.displayValue.push(JSON.parse(item.list));
         });
-          this.userName = localStorage.getItem("userName")
-      
+        this.userName = localStorage.getItem("userName")
+
       })
   }
   userName = ""
@@ -67,21 +70,19 @@ export class HomePageComponent implements OnInit {
   async delItem(item: string | number) {
 
     this.displayValue.splice(this.displayValue.indexOf(item), 1)
-    ;(await this.commonService.deleteItem(item)).subscribe(res=>{
-      console.log(res)
-    })
+      ; (await this.commonService.deleteItem(item)).subscribe(res => {
+        console.log(res)
+      })
 
   };
 
   async changecolor(item: any[], i: number) {
     const match = this.displayValue[i]
     match.status = true;
-    // this.changecoorMini(item,i,this.displayValue,match)
-    (await this.commonService.patchItem(item,match)).subscribe(res=>{
+    this.commonService.patchItem(item, match).subscribe(res => {
       console.log(res)
     })
-     
-    console.log(match.status,"=>>>>>>>>>>>>>")
+    console.log(match.status, "=>>>>>>>>>>>>>")
   }
 
 
