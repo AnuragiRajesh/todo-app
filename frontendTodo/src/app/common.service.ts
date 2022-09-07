@@ -16,53 +16,31 @@ export class CommonService {
   }
 
   dataFromApi() {
-    const headerDict = {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
-    }
-    let headers = new HttpHeaders(headerDict);
-
+    let headers = new HttpHeaders(this.headerDict);
     console.log(headers)
     return this.http.get(`http://localhost:7000/item/${localStorage.getItem("userId")}`, { headers: headers })
   }
   async getItems(value: string) {
-    // const headerDict = {
-    //   'Content-Type': 'application/json',
-    //   'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
-    // }
     let headers = new HttpHeaders(this.headerDict);
-
     console.log(headers)
     return this.http.post(`http://localhost:7000/item/${localStorage.getItem("userId")}`, { list: JSON.stringify({ 'value': value, 'status': false }) }, { headers: headers })
 
   }
-  async deleteItem(item: any) {
-    const headerDict = {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
-    }
-    let headers = new HttpHeaders(headerDict);
 
+  async deleteItem(item: any) {
+    let headers = new HttpHeaders(this.headerDict);
     console.log(item)
     return this.http.delete(`http://localhost:7000/item/${JSON.stringify(item)}`, { headers: headers })
 
 
   }
   async deleteAccount() {
-    const headerDict = {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
-    }
-    let headers = new HttpHeaders(headerDict);
+    let headers = new HttpHeaders(this.headerDict);
     return this.http.delete(`http://localhost:7000/user/${localStorage.getItem("userId")}`, { headers: headers })
 
   }
   patchItem(item: any, match: any) {
-    const headerDict = {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
-    }
-    let headers = new HttpHeaders(headerDict);
+    let headers = new HttpHeaders(this.headerDict);
     return this.http
       .patch(`http://localhost:7000/item/:${localStorage.getItem("userId")}`,
         { updatedItem: JSON.stringify({ 'value': match.value, 'status': true }), item: JSON.stringify({ 'value': match.value, 'status': false }) }, { headers: headers }
