@@ -1,18 +1,16 @@
 <div class="mainDiv">
 
-  <h5 >{{userName}}</h5> <button (click)="deleteAccount()">delete your account</button>
+  <h5>{{userName}}</h5> <button (click)="deleteAccount()">delete your account</button>
   <button (click)="signout()">sign-out</button>
-  <h1 style="font-weight: bolder ;" >TODO APP</h1>
+  <h1 style="font-weight: bolder ;">TODO APP</h1>
 
   <div class="erase">
 
-  <input type="text" #box  placeholder="enter your item">
-  <button
-  (click)="getValue(box.value)"
-  >push</button>
-
-  <ul *ngFor="let item of displayValue; let i = index"
-    >
-    <span [ngClass]="item.status === true ? 'active' : ''">{{item.value}}</span>
-    <button (click)="delItem(item)"  >X</button><button (click)="changecolor(item, i)" >✔️</button></ul>
-</div>
+    <input type="text" #box placeholder="enter your item">
+    <button (click)="getValue(box.value)">push</button>
+    <ol>
+    <div type="1" *ngFor="let item of displayValue; let i = index">
+      <li [ngClass]="item.status === true ? 'active' : ''">{{item.value}}</li>
+      <button (click)="delItem(item)">X</button><button (click)="changecolor(item, i)">✔️</button>
+    </div></ol>
+  </div>  
