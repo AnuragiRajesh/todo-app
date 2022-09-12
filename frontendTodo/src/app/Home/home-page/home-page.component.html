@@ -1,16 +1,50 @@
 <div class="mainDiv">
 
-  <h5>{{userName}}</h5> <button (click)="deleteAccount()">delete your account</button>
-  <button (click)="signout()">sign-out</button>
+  <h5>{{userName}}</h5> <button  mat-raised-button (click)="openDialog2()" >delete your account</button>
+  <button mat-raised-button (click)="openDialog()">sign-out</button>
   <h1 style="font-weight: bolder ;">TODO APP</h1>
 
   <div class="erase">
 
     <input type="text" #box placeholder="enter your item">
     <button (click)="getValue(box.value)">push</button>
-    <ol>
-    <div type="1" *ngFor="let item of displayValue; let i = index">
-      <li [ngClass]="item.status === true ? 'active' : ''">{{item.value}}</li>
-      <button (click)="delItem(item)">X</button><button (click)="changecolor(item, i)">✔️</button>
-    </div></ol>
-  </div>  
+    <div style="display: flex; justify-content: space-around;">
+
+
+
+      <ol>
+        <div type="1" *ngFor="let item of displayValue; let i = index" style="display: flex; flex-direction: row;">
+          <li [ngClass]="item.status === true ? 'active' : ''">{{item.value}}</li>
+          <button (click)="delItem(item)">X</button><button (click)="changecolor(item, i)">✔️</button>
+        </div>
+      </ol>
+
+
+    </div>
+  </div>
+
+
+  <ng-template   #data>
+   
+    <div style="display: flex; justify-content: space-around;">
+      <h3 style="display: inline;">Are you sure?</h3>
+    </div>
+
+    <div style="display: flex; justify-content: space-around;">
+      <button (click)="signout()">Yes</button>
+      <button (click)="noSignout()">No</button>
+    </div>
+  </ng-template>
+
+
+  <ng-template   #data2>
+   
+    <div style="display: flex; justify-content: space-around;">
+      <input type="text" #box2 placeholder="enter your password">
+    </div>
+
+    <div style="display: flex; justify-content: space-around;">
+      <button (click)="deleteAccount(box2.value)">submit</button>
+      <button (click)="noDeleteAccount()">cancel</button>
+    </div>
+  </ng-template>

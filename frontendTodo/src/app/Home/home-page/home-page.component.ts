@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import axios from "axios";
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/common.service';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from 'src/app/Auth/login/login.component';
 
 @Component({
   selector: 'app-home-page',
@@ -10,18 +11,22 @@ import { CommonService } from 'src/app/common.service';
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent implements OnInit {
-
+@ViewChild('data') public content: TemplateRef<any>;
+@ViewChild('data2') public content2: TemplateRef<any>;
+public dialogRef: any;
+public dialogRef2: any;
   constructor(public http: HttpClient,
     private router: Router,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private dialog: MatDialog
   ) {
 
 
   }
+  userName = ""
   title = 'frontendTodo';
   active: any = false;
   displayValue: any[] = [];
-
 
 
   async getValue(value: string) {
@@ -38,22 +43,8 @@ export class HomePageComponent implements OnInit {
       })
     console.log(this.displayValue)
   };
-
-  signout() {
-    localStorage.clear();
-    localStorage.clear();
-    this.router.navigate(['login'])
-  }
-  async deleteAccount(
-  ) {
-    (await this.commonService.deleteAccount()).subscribe(res => {
-      console.log(res)
-    })
-    localStorage.clear();
-    localStorage.clear();
-    this.router.navigate(['signup'])
-
-  }
+  
+ 
   ngOnInit() {
     this.commonService.dataFromApi().
       subscribe(data => {
@@ -62,10 +53,58 @@ export class HomePageComponent implements OnInit {
           this.displayValue.push(JSON.parse(item.list));
         });
         this.userName = localStorage.getItem("userName")
-
       })
   }
-  userName = ""
+
+  noSignout(){
+    this.dialogRef.close();
+  }
+  signout() {
+    localStorage.clear();
+    localStorage.clear();
+    this.router.navigate(['login']);
+    this.dialogRef.close();
+  }
+  openDialog(): void {
+   
+    this.dialogRef = this.dialog.open(this.content,{
+      width: '25%'
+    });
+
+    this.dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
+    });
+  }
+  noDeleteAccount(){
+    this.dialogRef2.close();}
+    async deleteAccount(value:any
+      ) {
+        console.log(value)
+        // if()
+        // (await this.commonService.loginUser(data)).subscribe((res: any) => {}
+    
+        // (await this.commonService.deleteAccount()).subscribe(res => {
+        //   console.log(res)
+        // })
+        // localStorage.clear();
+        // localStorage.clear();
+        // this.router.navigate(['signup'])
+        this.dialogRef2.close();
+    
+      }
+  openDialog2(): void {
+
+    this.dialogRef2 = this.dialog.open(this.content,{
+      width: '25%'
+    });
+
+    this.dialogRef2.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
+    });
+
+  }
 
   async delItem(item: string | number) {
 
